@@ -28,7 +28,10 @@ SECRET_KEY = '7o2hu3hlahr30_bdf*ay)&r5z%y@&m*skx=02=%xapxfjtrro('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '*'
+]
 
 
 # Application definition
@@ -79,6 +82,16 @@ WSGI_APPLICATION = 'GestiREDBackend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(default=config('DATABASE_URL'))
+
+    #Local leo
+    # 'default': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'gestired',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432'
+    # }
 }
 
 

@@ -26,6 +26,10 @@ class User(models.Model):
         perfiles =  models.ManyToManyField(Perfil)
 
 
+def __str__(self):
+    return '%s %s' % (self.name, self.body)
+
+
 class TipoRecurso(models.Model):
     nombre = models.CharField(max_length=200)
 
