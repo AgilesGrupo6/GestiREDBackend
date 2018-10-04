@@ -2,6 +2,8 @@ from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie import fields
 from .models import *
+from tastypie.resources import ALL,  ALL_WITH_RELATIONS
+
 
 class UserResource(ModelResource):
     class Meta:
@@ -41,10 +43,16 @@ class TipoRecursoResource(ModelResource):
 
 class ResourceResource(ModelResource):
     tipoRecurso = fields.ForeignKey(TipoRecursoResource, 'tipoRecurso')
+    responsables = fields.ToManyField('GestiRED.resources.UserResource',
+                                 'responsables')
     class Meta:
         queryset = Resource.objects.all()
         resource_name = 'resource'
         authorization = Authorization()
+        filtering = {
+            'responsables': ALL_WITH_RELATIONS,
+            'etiquetas': ALL,
+        }
 
 
 class ControlCalidadResource(ModelResource):
