@@ -77,10 +77,17 @@ class FaseResource(ModelResource):
         resource_name = 'fase'
         authorization = Authorization()
 
+
 class ProjectResource(ModelResource):
+    resources = fields.ToManyField('GestiRED.resources.ResourceResource',
+                                      'resources')
     class Meta:
         queryset = Project.objects.all()
         resource_name = 'project'
         authorization = Authorization()
+        filtering = {
+            'resources': ALL_WITH_RELATIONS,
+            'etiquetas': ALL,
+        }
 
 
