@@ -69,9 +69,12 @@ class TipoFase(models.Model):
 
 class Fase(models.Model):
     fechaInicial = models.DateTimeField(default=timezone.now)
-    fechaFinal = models.DateTimeField()
+    fechaFinal = models.DateTimeField(null=True, blank=True)
     tipoFase =  models.ForeignKey(TipoFase, on_delete=models.CASCADE)
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return  self.resource.nombre  +' - '+ self.tipoFase.nombre
 
 
 class Project(models.Model):
