@@ -26,14 +26,6 @@ class PrivilegeResource(ModelResource):
         authorization = Authorization()
 
 
-class PerfilResource(ModelResource):
-    role = fields.ForeignKey(RolResource, 'role')
-    class Meta:
-        queryset = Perfil.objects.all()
-        resource_name = 'perfil'
-        authorization = Authorization()
-
-
 class TipoRecursoResource(ModelResource):
     class Meta:
         queryset = TipoRecurso.objects.all()
