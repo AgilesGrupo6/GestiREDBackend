@@ -12,6 +12,7 @@ controlCalidad_resource = ControlCalidadResource()
 tipoFase_resource = TipoFaseResource()
 fase_resource = FaseResource()
 project_resource = ProjectResource()
+tipo_evento_resource = TipoEventoResource()
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -24,4 +25,5 @@ urlpatterns = [
     path('', include(tipoFase_resource.urls)),
     path('', include(fase_resource.urls)),
     path('', include(project_resource.urls)),
+    path('', include(tipo_evento_resource.urls)),
 ]

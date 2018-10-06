@@ -83,3 +83,8 @@ class ProjectResource(ModelResource):
         }
 
 
+class TipoEventoResource(ModelResource):
+    class Meta:
+        queryset = TipoEvento.objects.all()
+        resource_name = 'tipoEvento'
+        authorization = Authorization()
