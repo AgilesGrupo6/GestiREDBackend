@@ -13,6 +13,7 @@ tipoFase_resource = TipoFaseResource()
 fase_resource = FaseResource()
 project_resource = ProjectResource()
 tipo_evento_resource = TipoEventoResource()
+evento_resource = EventoResource()
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('', include(fase_resource.urls)),
     path('', include(project_resource.urls)),
     path('', include(tipo_evento_resource.urls)),
+    path('', include(evento_resource.urls)),
 ]

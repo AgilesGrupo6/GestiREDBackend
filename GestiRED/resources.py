@@ -88,3 +88,9 @@ class TipoEventoResource(ModelResource):
         queryset = TipoEvento.objects.all()
         resource_name = 'tipoEvento'
         authorization = Authorization()
+
+class EventoResource(ModelResource):
+    class Meta:
+        queryset = Evento.objects.all()
+        resource_name = 'evento'
+        authorization = Authorization()
