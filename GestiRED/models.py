@@ -91,3 +91,20 @@ class Project(models.Model):
     def __str__(self):
         return '%s' % self.name
 
+
+class TipoEvento(models.Model):
+    nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return '%s' % self.nombre
+
+
+class Evento(models.Model):
+    fechaInicial = models.DateTimeField(default=timezone.now)
+    fechaFinal = models.DateTimeField(null=True, blank=True)
+    tipoEvento =  models.ForeignKey(TipoEvento, on_delete=models.CASCADE)
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return  self.resource.nombre  +' - '+ self.tipoEvento.nombre
+
