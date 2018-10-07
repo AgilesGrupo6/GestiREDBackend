@@ -102,7 +102,6 @@ class TipoEvento(models.Model):
 
 class Evento(models.Model):
     fechaInicial = models.DateTimeField(default=timezone.now)
-    fechaFinal = models.DateTimeField(null=True, blank=True)
     tipoEvento =  models.ForeignKey(TipoEvento, on_delete=models.CASCADE)
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
 
