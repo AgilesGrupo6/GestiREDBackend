@@ -5,6 +5,7 @@ from .models import *
 from tastypie.resources import ALL,  ALL_WITH_RELATIONS
 
 
+
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
@@ -41,9 +42,9 @@ class TipoFaseResource(ModelResource):
 
 
 class ResourceResource(ModelResource):
-    tipoRecurso = fields.ForeignKey(TipoRecursoResource, 'tipoRecurso')
-    responsables = fields.ToManyField('GestiRED.resources.UserResource',
-                                 'responsables')
+
+    tipoRecurso = fields.CharField(attribute="tipoRecurso")
+    responsables = fields.ToManyField('GestiRED.resources.UserResource','responsables')
     #fases = fields.ForeignKey ( FaseResource,'fases' )
     class Meta:
         queryset = Resource.objects.all()
@@ -54,17 +55,22 @@ class ResourceResource(ModelResource):
             'etiquetas': ALL,
         }
 
+    def dehydrate_responsables(self, bundle):
+        user = list ( bundle.obj.responsables.all ())
+        return  [u for u in user]
+
 class FaseResource(ModelResource):
-    tipoFase=fields.ForeignKey(TipoFaseResource, 'tipoFase')
-    resources = fields.ForeignKey(ResourceResource, 'resource')
+    tipoFase=fields.CharField(attribute="tipoFase")
+    resources = fields.CharField(attribute="resource")
+
     class Meta:
         queryset = Fase.objects.all()
         resource_name = 'fase'
         authorization = Authorization()
 
 class ControlCalidadResource(ModelResource):
-    responsable  = fields.ForeignKey(UserResource, 'responsable')
-    resource = fields.ForeignKey(ResourceResource, 'resource')
+    responsable  = fields.CharField(attribute="responsable")
+    resource = fields.CharField(attribute="resource")
     class Meta:
         queryset = ControlCalidad.objects.all()
         resource_name = 'controlCalidad'
@@ -82,6 +88,9 @@ class ProjectResource(ModelResource):
             'resources': ALL_WITH_RELATIONS,
             'etiquetas': ALL,
         }
+    def dehydrate_resources(self, bundle):
+        resources = list ( bundle.obj.resources.all ())
+        return  [r for r in resources]
 
 
 class TipoEventoResource(ModelResource):
@@ -91,6 +100,8 @@ class TipoEventoResource(ModelResource):
         authorization = Authorization()
 
 class EventoResource(ModelResource):
+    resource=fields.CharField(attribute="resource")
+    tipoEvento =fields.CharField(attribute="tipoEvento")
     class Meta:
         queryset = Evento.objects.all()
         resource_name = 'evento'
