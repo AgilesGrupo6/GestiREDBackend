@@ -32,11 +32,19 @@ class TipoRecursoResource(ModelResource):
         resource_name = 'tipoRecurso'
         authorization = Authorization()
 
+class TipoFaseResource(ModelResource):
+    class Meta:
+        queryset = TipoFase.objects.all()
+        resource_name = 'tipoFase'
+        authorization = Authorization()
+
+
 
 class ResourceResource(ModelResource):
     tipoRecurso = fields.ForeignKey(TipoRecursoResource, 'tipoRecurso')
     responsables = fields.ToManyField('GestiRED.resources.UserResource',
                                  'responsables')
+    #fases = fields.ForeignKey ( FaseResource,'fases' )
     class Meta:
         queryset = Resource.objects.all()
         resource_name = 'resource'
@@ -46,6 +54,13 @@ class ResourceResource(ModelResource):
             'etiquetas': ALL,
         }
 
+class FaseResource(ModelResource):
+    tipoFase=fields.ForeignKey(TipoFaseResource, 'tipoFase')
+    resources = fields.ForeignKey(ResourceResource, 'resource')
+    class Meta:
+        queryset = Fase.objects.all()
+        resource_name = 'fase'
+        authorization = Authorization()
 
 class ControlCalidadResource(ModelResource):
     responsable  = fields.ForeignKey(UserResource, 'responsable')
@@ -53,20 +68,6 @@ class ControlCalidadResource(ModelResource):
     class Meta:
         queryset = ControlCalidad.objects.all()
         resource_name = 'controlCalidad'
-        authorization = Authorization()
-
-
-class TipoFaseResource(ModelResource):
-    class Meta:
-        queryset = TipoFase.objects.all()
-        resource_name = 'tipoFase'
-        authorization = Authorization()
-
-
-class FaseResource(ModelResource):
-    class Meta:
-        queryset = Fase.objects.all()
-        resource_name = 'fase'
         authorization = Authorization()
 
 

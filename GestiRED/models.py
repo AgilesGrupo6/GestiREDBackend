@@ -44,6 +44,7 @@ class Resource(models.Model):
     url = models.CharField(max_length=200)
     tipoRecurso = models.ForeignKey(TipoRecurso, on_delete=models.CASCADE)
     responsables = models.ManyToManyField('User')
+    #fases = models.ForeignKey('Fase', on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         if self.id is None or self.nombre not in self.etiquetas:
@@ -75,7 +76,7 @@ class Fase(models.Model):
 
     def __str__(self):
         return  self.resource.nombre  +' - '+ self.tipoFase.nombre
-
+        #return self.tipoFase.nombre
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
