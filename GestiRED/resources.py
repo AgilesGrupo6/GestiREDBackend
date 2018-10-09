@@ -79,7 +79,7 @@ class ControlCalidadResource(ModelResource):
 
 class ProjectResource(ModelResource):
     resources = fields.ToManyField('GestiRED.resources.ResourceResource',
-                                      'resources')
+                                      'resources', full=True)
     class Meta:
         queryset = Project.objects.all()
         resource_name = 'project'
@@ -88,9 +88,9 @@ class ProjectResource(ModelResource):
             'resources': ALL_WITH_RELATIONS,
             'etiquetas': ALL,
         }
-    def dehydrate_resources(self, bundle):
-        resources = list ( bundle.obj.resources.all ())
-        return  [r for r in resources]
+    #def dehydrate_resources(self, bundle):
+    #    resources = list ( bundle.obj.resources.all ())
+    #    return  [r for r in resources]
 
 
 class TipoEventoResource(ModelResource):
