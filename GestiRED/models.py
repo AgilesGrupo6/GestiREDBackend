@@ -103,7 +103,10 @@ class TipoEvento(models.Model):
 class Evento(models.Model):
     fechaInicial = models.DateTimeField(default=timezone.now)
     tipoEvento =  models.ForeignKey(TipoEvento, on_delete=models.CASCADE)
+    descripcion = models.CharField(max_length=500, null=True, blank=True)
+    usuario = models.ForeignKey(User, default='1', on_delete=models.CASCADE)
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    artefacto = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return  self.resource.nombre  +' - '+ self.tipoEvento.nombre

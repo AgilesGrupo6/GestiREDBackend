@@ -107,6 +107,7 @@ class TipoEventoResource(ModelResource):
 class EventoResource(ModelResource):
     resource=fields.CharField(attribute="resource")
     tipoEvento =fields.CharField(attribute="tipoEvento")
+    usuario = fields.CharField(attribute="usuario")
     class Meta:
         queryset = Evento.objects.all()
         resource_name = 'evento'

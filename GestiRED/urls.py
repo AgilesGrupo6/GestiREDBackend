@@ -16,7 +16,7 @@ tipo_evento_resource = TipoEventoResource()
 evento_resource = EventoResource()
 
 urlpatterns = [
-    path('', views.index, name='index'),
+
     path('', include(user_resource.urls)),
     path('', include(rol_resource.urls)),
     path('', include(privilege_resource.urls)),
