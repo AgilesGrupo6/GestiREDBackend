@@ -45,7 +45,7 @@ class ResourceResource(ModelResource):
 
     tipoRecurso = fields.CharField(attribute="tipoRecurso")
     responsables = fields.ToManyField('GestiRED.resources.UserResource','responsables')
-    #fases = fields.ForeignKey ( FaseResource,'fases' )
+    #fases = fields.ToManyField('GestiRED.resources.FaseResource','resources', null=True)
     class Meta:
         queryset = Resource.objects.all()
         resource_name = 'resource'
@@ -59,14 +59,19 @@ class ResourceResource(ModelResource):
         user = list ( bundle.obj.responsables.all ())
         return  [u for u in user]
 
-class FaseResource(ModelResource):
-    tipoFase=fields.CharField(attribute="tipoFase")
-    resources = fields.CharField(attribute="resource")
 
+class FaseResource(ModelResource):
+    tipoFase= fields.ForeignKey(TipoFaseResource, 'tipoFase', null=True, full=True)
+    resources = fields.ForeignKey(ResourceResource, 'resource', null=True)
+    fields = ['resources']
     class Meta:
         queryset = Fase.objects.all()
         resource_name = 'fase'
         authorization = Authorization()
+        filtering = {
+            'resources': ALL_WITH_RELATIONS
+
+        }
 
 class ControlCalidadResource(ModelResource):
     responsable  = fields.CharField(attribute="responsable")
