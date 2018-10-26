@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'GestiRED.apps.GestiredConfig',
-    'corsheaders'
+    'corsheaders',
+    'django.core.mail',
 ]
 
 MIDDLEWARE = [
@@ -88,13 +89,13 @@ DATABASES = {
 
     #Local leo
      #'default': {
-     #   'ENGINE': 'django.db.backends.postgresql_psycopg2',
-     #    'NAME': 'gestired',
-     #    'USER': 'postgres',
-     #    'PASSWORD': 'postgres',
-     #    'HOST': 'localhost',
-     #    'PORT': '5432'
-     #}
+    #   'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'gestired',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432'
+    # }
 }
 
 
@@ -139,3 +140,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'clipstaragil6@gmail.com'
+EMAIL_HOST_PASSWORD = 'clipstar123'
+EMAIL_PORT = 587

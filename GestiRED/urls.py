@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.conf.urls import url
 
 from . import views
 from .resources import *
@@ -28,4 +29,6 @@ urlpatterns = [
     path('', include(project_resource.urls)),
     path('', include(tipo_evento_resource.urls)),
     path('', include(evento_resource.urls)),
+
+    path('send_email_notification/', views.send_email_notification, name="send notification")
 ]
