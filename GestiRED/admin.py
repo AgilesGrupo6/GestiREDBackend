@@ -1,16 +1,16 @@
 from django.contrib import admin
-from .models import Privilege, Rol, User, TipoRecurso, Resource, ControlCalidad, TipoFase, Fase, Project, Evento, TipoEvento
+from .models import *
 
 # Register your models here.
 
 admin.site.register(Privilege)
 admin.site.register(Rol)
 admin.site.register(User)
-admin.site.register(TipoRecurso)
+admin.site.register(ResourceType)
 admin.site.register(Resource)
-admin.site.register(ControlCalidad)
-admin.site.register(TipoFase)
-admin.site.register(Fase)
+admin.site.register(QualityControl)
+admin.site.register(PhaseType)
+admin.site.register(Phase)
 admin.site.register(Project)
-admin.site.register(Evento)
-admin.site.register(TipoEvento)
+admin.site.register(Event)
+admin.site.register(EventType)

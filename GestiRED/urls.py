@@ -1,34 +1,31 @@
 from django.urls import path, include
-from django.conf.urls import url
 
-from . import views
+#from . import views
 from .resources import *
 
 user_resource = UserResource()
 rol_resource = RolResource()
 privilege_resource = PrivilegeResource()
-tipoRecurso_resource = TipoRecursoResource()
+resource_type_resource = ResourceTypeResource()
 resource_resource = ResourceResource()
-controlCalidad_resource = ControlCalidadResource()
-tipoFase_resource = TipoFaseResource()
-fase_resource = FaseResource()
+quality_control_resource = QualityControlResource()
+phase_type_resource = PhaseTypeResource()
+phase_resource = PhaseResource()
 project_resource = ProjectResource()
-tipo_evento_resource = TipoEventoResource()
-evento_resource = EventoResource()
+event_type_resource = EventTypeResource()
+event_resource = EventResource()
 
 urlpatterns = [
 
     path('', include(user_resource.urls)),
     path('', include(rol_resource.urls)),
     path('', include(privilege_resource.urls)),
-    path('', include(tipoRecurso_resource.urls)),
+    path('', include(resource_type_resource.urls)),
     path('', include(resource_resource.urls)),
-    path('', include(controlCalidad_resource.urls)),
-    path('', include(tipoFase_resource.urls)),
-    path('', include(fase_resource.urls)),
+    path('', include(quality_control_resource.urls)),
+    path('', include(phase_type_resource.urls)),
+    path('', include(phase_resource.urls)),
     path('', include(project_resource.urls)),
-    path('', include(tipo_evento_resource.urls)),
-    path('', include(evento_resource.urls)),
-
-    path('quality_review_notification/', views.quality_review_notification, name="send notification")
+    path('', include(event_type_resource.urls)),
+    path('', include(event_resource.urls)),
 ]
