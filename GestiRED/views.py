@@ -12,7 +12,7 @@ def index(request):
 
 
 @csrf_exempt
-def send_email_notification(request):
+def quality_review_notification(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         id = data["id"]
