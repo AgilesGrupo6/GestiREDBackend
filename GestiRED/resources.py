@@ -74,6 +74,8 @@ class FaseResource(ModelResource):
         }
 
 class ControlCalidadResource(ModelResource):
+    #responsable = fields.ForeignKey(UserResource, 'responsable')
+    #resource = fields.ForeignKey(ResourceResource, 'resource')
     responsable  = fields.CharField(attribute="responsable")
     resource = fields.CharField(attribute="resource")
     class Meta:
