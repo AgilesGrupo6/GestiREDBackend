@@ -30,5 +30,5 @@ urlpatterns = [
     path('', include(tipo_evento_resource.urls)),
     path('', include(evento_resource.urls)),
 
-    path('send_email_notification/', views.send_email_notification, name="send notification")
+    path('quality_review_notification/', views.quality_review_notification, name="send notification")
 ]
