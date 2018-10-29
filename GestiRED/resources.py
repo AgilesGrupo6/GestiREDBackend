@@ -74,7 +74,7 @@ class PhaseResource(ModelResource):
         }
 
 class QualityControlResource(ModelResource):
-    responsable  = fields.CharField(attribute="responsible")
+    responsible  = fields.CharField(attribute="responsible")
     resource = fields.CharField(attribute="resource")
     class Meta:
         queryset = QualityControl.objects.all()

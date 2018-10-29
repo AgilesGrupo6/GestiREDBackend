@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-#from . import views
+from . import views
 from .resources import *
 
 user_resource = UserResource()
@@ -28,4 +28,5 @@ urlpatterns = [
     path('', include(project_resource.urls)),
     path('', include(event_type_resource.urls)),
     path('', include(event_resource.urls)),
+    path('quality_review_notification/', views.quality_review_notification, name="send notification"),
 ]
