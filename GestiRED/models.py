@@ -80,9 +80,8 @@ class Phase(models.Model):
         return  self.resource.name  +' - '+ self.phaseType.name
         #return self.phaseType.name
 
-    def change_phase_resource(self,  *args, **kwargs):
-        #Phase.objects.filter(headline="Test")
-        return "Phase.phaseType.name2"
+
+
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
