@@ -27,58 +27,58 @@ class PrivilegeResource(ModelResource):
         authorization = Authorization()
 
 
-class TipoRecursoResource(ModelResource):
+class ResourceTypeResource(ModelResource):
     class Meta:
-        queryset = TipoRecurso.objects.all()
-        resource_name = 'tipoRecurso'
+        queryset = ResourceType.objects.all()
+        resource_name = 'resourceType'
         authorization = Authorization()
 
-class TipoFaseResource(ModelResource):
+class PhaseTypeResource(ModelResource):
     class Meta:
-        queryset = TipoFase.objects.all()
-        resource_name = 'tipoFase'
+        queryset = PhaseType.objects.all()
+        resource_name = 'phaseType'
         authorization = Authorization()
 
 
 
 class ResourceResource(ModelResource):
 
-    tipoRecurso = fields.CharField(attribute="tipoRecurso")
-    responsables = fields.ToManyField('GestiRED.resources.UserResource','responsables')
-    #fases = fields.ToManyField('GestiRED.resources.FaseResource','resources', null=True)
+    resourceType = fields.CharField(attribute="resourceType")
+    responsibles = fields.ToManyField('GestiRED.resources.UserResource','responsibles')
+    #Phases = fields.ToManyField('GestiRED.resources.PhaseResource','resources', null=True)
     class Meta:
         queryset = Resource.objects.all()
         resource_name = 'resource'
         authorization = Authorization()
         filtering = {
-            'responsables': ALL_WITH_RELATIONS,
-            'etiquetas': ALL,
+            'responsibles': ALL_WITH_RELATIONS,
+            'labels': ALL,
         }
 
-    def dehydrate_responsables(self, bundle):
-        user = list ( bundle.obj.responsables.all ())
+    def dehydrate_responsibles(self, bundle):
+        user = list ( bundle.obj.responsibles.all ())
         return  [u for u in user]
 
 
-class FaseResource(ModelResource):
-    tipoFase= fields.ForeignKey(TipoFaseResource, 'tipoFase', null=True, full=True)
+class PhaseResource(ModelResource):
+    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True)
     resources = fields.ForeignKey(ResourceResource, 'resource', null=True)
     fields = ['resources']
     class Meta:
-        queryset = Fase.objects.all()
-        resource_name = 'fase'
+        queryset = Phase.objects.all()
+        resource_name = 'phase'
         authorization = Authorization()
         filtering = {
             'resources': ALL_WITH_RELATIONS
 
         }
 
-class ControlCalidadResource(ModelResource):
-    responsable  = fields.CharField(attribute="responsable")
+class QualityControlResource(ModelResource):
+    responsible  = fields.CharField(attribute="responsible")
     resource = fields.CharField(attribute="resource")
     class Meta:
-        queryset = ControlCalidad.objects.all()
-        resource_name = 'controlCalidad'
+        queryset = QualityControl.objects.all()
+        resource_name = 'qualityControl'
         authorization = Authorization()
 
 
@@ -91,24 +91,25 @@ class ProjectResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'resources': ALL_WITH_RELATIONS,
-            'etiquetas': ALL,
+            'labels': ALL,
         }
     #def dehydrate_resources(self, bundle):
     #    resources = list ( bundle.obj.resources.all ())
     #    return  [r for r in resources]
 
 
-class TipoEventoResource(ModelResource):
+class EventTypeResource(ModelResource):
     class Meta:
-        queryset = TipoEvento.objects.all()
-        resource_name = 'tipoEvento'
+        queryset = EventType.objects.all()
+        resource_name = 'eventType'
         authorization = Authorization()
 
-class EventoResource(ModelResource):
+
+class EventResource(ModelResource):
     resource=fields.CharField(attribute="resource")
-    tipoEvento =fields.CharField(attribute="tipoEvento")
-    usuario = fields.CharField(attribute="usuario")
+    eventType =fields.CharField(attribute="eventType")
+    user = fields.CharField(attribute="user")
     class Meta:
-        queryset = Evento.objects.all()
-        resource_name = 'evento'
+        queryset = Event.objects.all()
+        resource_name = 'event'
         authorization = Authorization()
