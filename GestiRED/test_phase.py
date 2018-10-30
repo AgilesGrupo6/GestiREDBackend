@@ -7,15 +7,17 @@ django.setup()
 from django.conf import settings
 from GestiRED.models import Phase,Resource, PhaseType
 from django.utils import timezone
+from random import randrange
 
 
 class TestPhase(TestCase):
-
+    #Se espera que solo quede un solo registro activo (sin valor en endDate)
     def test_save_phase(self):
-        resource=Resource.objects.filter(id=1)
-        tf=PhaseType.objects.filter(id=4)
-
-        phase= Phase(initDate=timezone.now(), resource=resource, phaseType=tf)
+        phase = Phase(initDate=timezone.now(), resource_id=1, phaseType_id=randrange(5)+1)
         phase.save()
+        lst = Phase.objects.filter(resource__id=1, endDate=None)
 
-        self.assertEqual(phase.phaseType.name, "Control de calidad")
+        if len(lst) != 1:
+            phase.delete()
+
+        self.assertEqual(len(lst), 1)
