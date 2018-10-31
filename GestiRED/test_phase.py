@@ -1,3 +1,4 @@
+'''
 from unittest import TestCase
 import django
 import os
@@ -26,3 +27,4 @@ class TestPhase(ResourceTestCaseMixin,TestCase):
     def test_get_resources_phase(self):
         resp = self.api_client.get('/gestired/resources/?phaseType=3', format='json')
         self.assertValidJSONResponse(resp)
+'''

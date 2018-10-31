@@ -88,7 +88,7 @@ DATABASES = {
     'default': dj_database_url.config(default=config('DATABASE_URL'))
 
     #Local leo
-     #'default': {
+    # 'default': {
     #   'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': 'gestired',
     #     'USER': 'postgres',
