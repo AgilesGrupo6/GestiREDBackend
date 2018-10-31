@@ -17,7 +17,7 @@ def quality_review_notification(request):
         data = json.loads(request.body)
         id = data["id"]
         resource = data["resource"]
-        obs = data["observacion"]
+        obs = data["observation"]
         user = User.objects.get(pk=id)
 
         send_mail('Revision Calidad',
