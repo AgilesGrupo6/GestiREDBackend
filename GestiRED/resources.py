@@ -7,10 +7,16 @@ from tastypie.resources import ALL,  ALL_WITH_RELATIONS
 
 
 class UserResource(ModelResource):
+    rols=fields.ToManyField('GestiRED.resources.RolResource','rols', full=True)
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
         authorization = Authorization()
+
+        filtering = {
+            'rols': ALL_WITH_RELATIONS,
+        }
+
 
 
 class RolResource(ModelResource):

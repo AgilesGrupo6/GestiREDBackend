@@ -64,6 +64,11 @@ class QualityControl(models.Model):
     createUser = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='create_user')
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        qc = QualityControl.objects.filter(resource__id=self.resource.id)
+        qc.update(endDate=timezone.now())
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+
 
 class PhaseType(models.Model):
     name = models.CharField(max_length=200)
