@@ -5,7 +5,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GestiREDBackend.settings")
 django.setup()
 
 from django.conf import settings
-from GestiRED.models import Phase,Resource, PhaseType
+from .models import Phase,Resource, PhaseType
 from django.utils import timezone
 from random import randrange
 

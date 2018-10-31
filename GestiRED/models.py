@@ -78,7 +78,12 @@ class Phase(models.Model):
 
     def __str__(self):
         return  self.resource.name  +' - '+ self.phaseType.name
-        #return self.phaseType.name
+
+    def save(self, *args, **kwargs):
+        #Phase.objects.filter(resource__id=self.resource.id, endDate=None).update(endDate=timezone.now)
+        ph=Phase.objects.filter(resource__id=self.resource.id, endDate=None)#.update(endDate=timezone.now)
+        ph.update(endDate=timezone.now())
+        super().save(*args, **kwargs)  # Call the "real" save() method.
 
 
 
