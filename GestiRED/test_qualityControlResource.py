@@ -8,6 +8,7 @@ from tastypie.test import ResourceTestCaseMixin
 
 
 class TestQualityControlResource(ResourceTestCaseMixin,TestCase):
+
     def test_get_user_rols(self):
         resp = self.api_client.get('/gestired/user/?rols_in=2,3', format='json')
         self.assertValidJSONResponse(resp)

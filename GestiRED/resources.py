@@ -13,7 +13,7 @@ class UserResource(ModelResource):
         queryset = User.objects.all()
         resource_name = 'user'
         authorization = Authorization()
-
+        #filtro para usuario con roles especificos
         filtering = {
             'rols': ALL_WITH_RELATIONS,
         }
