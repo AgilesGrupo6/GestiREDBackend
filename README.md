@@ -9,4 +9,4 @@ branch HU_79
 
 
 ## Estado de la integracion
-[ ![Codeship Status for AgilesGrupo6/GestiREDBackend](https://app.codeship.com/projects/7f6ec0b0-bf40-0136-8acb-1eef3f812401/status?branch=master)](https://app.codeship.com/projects/313267)
+[ ![Codeship Status for AgilesGrupo6/GestiREDBackend](https://app.codeship.com/projects/7f6ec0b0-bf40-0136-8acb-1eef3f812401/status?branch=develop)](https://app.codeship.com/projects/313267)
