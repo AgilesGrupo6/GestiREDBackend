@@ -5,7 +5,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GestiREDBackend.settings")
 django.setup()
 
 from django.conf import settings
-from GestiRED.models import Phase,Resource, PhaseType
+from .models import Phase,Resource, PhaseType
 from django.utils import timezone
 from random import randrange
 from tastypie.test import ResourceTestCaseMixin
@@ -24,5 +24,5 @@ class TestPhase(ResourceTestCaseMixin,TestCase):
         self.assertEqual(len(lst), 1)
 
     def test_get_resources_phase(self):
-        resp = self.api_client.get('/gestired/resources/?phaseType=3/', format='json')
+        resp = self.api_client.get('/gestired/resources/?phaseType=3', format='json')
         self.assertValidJSONResponse(resp)
