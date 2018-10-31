@@ -65,8 +65,8 @@ class QualityControl(models.Model):
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        qc = QualityControl.objects.filter(resource__id=self.resource.id)
-        qc.update(endDate=timezone.now())
+        #qc = QualityControl.objects.filter(resource__id=self.resource.id)
+        #qc.update(endDate=timezone.now())
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
 
