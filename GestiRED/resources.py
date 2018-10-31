@@ -73,6 +73,20 @@ class PhaseResource(ModelResource):
 
         }
 
+class Phase2Resource(ModelResource):
+    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True)
+    resource = fields.ForeignKey(ResourceResource, 'resource', null=True, full=True)
+    fields = ['phaseType']
+    class Meta:
+        queryset = Phase.objects.all()
+        resource_name = 'resources'
+        authorization = Authorization()
+        filtering = {
+            'phaseType': ALL_WITH_RELATIONS
+
+        }
+
+
 class QualityControlResource(ModelResource):
     responsible  = fields.CharField(attribute="responsible")
     resource = fields.CharField(attribute="resource")
