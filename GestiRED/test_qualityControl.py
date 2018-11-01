@@ -4,7 +4,7 @@ import os
 from django.conf import settings
 from django.utils import timezone
 from random import randrange
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'GestiREDBackend.GestiREDBackend.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'GestiREDBackend.settings')
 django.setup()
 from tastypie.test import ResourceTestCaseMixin
 
