@@ -17,4 +17,4 @@ class test_qualityControl(ResourceTestCaseMixin,TestCase):
             "createUser": "/gestired/user/2/"
         }
         resp = self.api_client.post('/gestired/qualityControl/', format='json', data=data)
-        self.assertValidJSONResponse(resp)
+        self.assertHttpCreated(resp)
