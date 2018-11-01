@@ -7,10 +7,17 @@ from tastypie.resources import ALL,  ALL_WITH_RELATIONS
 
 
 class UserResource(ModelResource):
+    rols=fields.ToManyField('GestiRED.resources.RolResource','rols', full=True)
+
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
         authorization = Authorization()
+    #filtro para usuario con roles especificos
+        filtering = {
+            'rols': ALL_WITH_RELATIONS,
+        }
+
 
 
 class RolResource(ModelResource):
@@ -88,8 +95,8 @@ class Phase2Resource(ModelResource):
 
 
 class QualityControlResource(ModelResource):
-    responsible  = fields.CharField(attribute="responsible")
-    resource = fields.CharField(attribute="resource")
+    responsible  = fields.ForeignKey(UserResource,'responsible', full=True)
+    resource = fields.ForeignKey(ResourceResource,'resource', full=True)
     class Meta:
         queryset = QualityControl.objects.all()
         resource_name = 'qualityControl'
