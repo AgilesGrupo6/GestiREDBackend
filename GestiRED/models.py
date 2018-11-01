@@ -119,3 +119,11 @@ class Event(models.Model):
     def __str__(self):
         return  self.resource.name  +' - '+ self.eventType.name
 
+class Comments(models.Model):
+    date = models.DateTimeField(default=timezone.now)
+    value = models.CharField(max_length=500, null=True, blank=True)
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    #qualityControl = models.ForeignKey(QualityControl, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return  self.value

@@ -134,3 +134,16 @@ class EventResource(ModelResource):
         queryset = Event.objects.all()
         resource_name = 'event'
         authorization = Authorization()
+
+class CommentsResource(ModelResource):
+    resource = fields.ForeignKey(ResourceResource, 'resource', null=True)
+
+    fields = ['resource']
+    class Meta:
+        queryset = Comments.objects.all()
+        resource_name = 'comments'
+        authorization = Authorization()
+        filtering = {
+            'resource': ALL_WITH_RELATIONS
+
+        }
