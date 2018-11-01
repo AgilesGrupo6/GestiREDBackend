@@ -95,8 +95,8 @@ class Phase2Resource(ModelResource):
 
 
 class QualityControlResource(ModelResource):
-    responsible  = fields.CharField(attribute="responsible")
-    resource = fields.CharField(attribute="resource")
+    responsible  = fields.ForeignKey(UserResource,'responsible', full=True)
+    resource = fields.ForeignKey(ResourceResource,'resource', full=True)
     class Meta:
         queryset = QualityControl.objects.all()
         resource_name = 'qualityControl'

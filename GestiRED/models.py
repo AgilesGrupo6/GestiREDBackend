@@ -55,19 +55,11 @@ class Resource(models.Model):
     def __str__(self):
         return '%s' % self.name
 
-
-
-
 class QualityControl(models.Model):
     observation = models.CharField(max_length=200)
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='assign_user')
     createUser = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='create_user')
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
-
-    def save(self, *args, **kwargs):
-        #qc = QualityControl.objects.filter(resource__id=self.resource.id)
-        #qc.update(endDate=timezone.now())
-        super().save(*args, **kwargs)  # Call the "real" save() method.
 
 
 class PhaseType(models.Model):
@@ -87,7 +79,7 @@ class Phase(models.Model):
         return  self.resource.name  +' - '+ self.phaseType.name
 
     def save(self, *args, **kwargs):
-        ph=Phase.objects.filter(resource__id=self.resource.id, endDate=None)#.update(endDate=timezone.now)
+        ph=Phase.objects.filter(resource__id=self.resource.id, endDate=None)
         ph.update(endDate=timezone.now())
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
