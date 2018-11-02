@@ -1,9 +1,22 @@
 from django.db import models
 from django.utils import timezone
+import logging, logging.config
+import sys
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO'
+    }
+}
 
-# Create your models here.
-
-
+logging.config.dictConfig(LOGGING)
 class Privilege(models.Model):
     name = models.CharField(max_length=200)
 
@@ -60,6 +73,7 @@ class QualityControl(models.Model):
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='assign_user')
     createUser = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='create_user')
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    state = models.CharField(max_length=1, default='A', null=True, blank=True)
 
 
 class PhaseType(models.Model):
@@ -79,11 +93,20 @@ class Phase(models.Model):
         return  self.resource.name  +' - '+ self.phaseType.name
 
     def save(self, *args, **kwargs):
-        ph=Phase.objects.filter(resource__id=self.resource.id, endDate=None)
+        logging.info("----->phases")
+        phase_qc = -1
+        ph = Phase.objects.filter(resource__id=self.resource.id, endDate=None)
+        ph_size = len(ph)
+
+        if ph_size > 0:
+            phase_qc = ph[0].phaseType.id
+
         ph.update(endDate=timezone.now())
+
+        if ph_size == 1 and phase_qc == 4:
+           qc= QualityControl.objects.filter(resource__id=self.resource.id)
+           qc.update(state='C')
         super().save(*args, **kwargs)  # Call the "real" save() method.
-
-
 
 
 class Project(models.Model):
@@ -118,6 +141,7 @@ class Event(models.Model):
 
     def __str__(self):
         return  self.resource.name  +' - '+ self.eventType.name
+
 
 class Comments(models.Model):
     date = models.DateTimeField(default=timezone.now)

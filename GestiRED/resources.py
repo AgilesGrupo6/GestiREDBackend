@@ -41,6 +41,7 @@ class ResourceTypeResource(ModelResource):
         authorization = Authorization()
 
 class PhaseTypeResource(ModelResource):
+    name = fields.CharField(attribute="name")
     class Meta:
         queryset = PhaseType.objects.all()
         resource_name = 'phaseType'
@@ -68,7 +69,7 @@ class ResourceResource(ModelResource):
 
 
 class PhaseResource(ModelResource):
-    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True)
+    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True, )
     resources = fields.ForeignKey(ResourceResource, 'resource', null=True)
     fields = ['resources']
     class Meta:
@@ -101,6 +102,11 @@ class QualityControlResource(ModelResource):
         queryset = QualityControl.objects.all()
         resource_name = 'qualityControl'
         authorization = Authorization()
+        filtering = {
+            'responsible': ALL_WITH_RELATIONS,
+            'resource': ALL_WITH_RELATIONS,
+            'state': ALL_WITH_RELATIONS
+        }
 
 
 class ProjectResource(ModelResource):
