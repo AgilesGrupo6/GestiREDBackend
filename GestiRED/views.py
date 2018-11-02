@@ -23,7 +23,7 @@ def quality_review_notification(request):
         user = qualityControl.responsible
 
         send_mail('Revision Calidad',
-                  'Recurso: ' + resource_name + 'Observaciones: ' + qualityControl.observation,
+                  'Recurso: ' + resource_name + '\n Observaciones: Se ha asignado para control de calidad a: ' + responsible_name,
                   'clipstaragil6@gmail.com',
                   [user.email],
                   fail_silently=False)
