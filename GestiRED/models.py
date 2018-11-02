@@ -69,7 +69,6 @@ class Resource(models.Model):
         return '%s' % self.name
 
 class QualityControl(models.Model):
-    observation = models.CharField(max_length=200)
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='assign_user')
     createUser = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='create_user')
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
