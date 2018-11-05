@@ -14,6 +14,8 @@ phase_resource = PhaseResource()
 project_resource = ProjectResource()
 event_type_resource = EventTypeResource()
 event_resource = EventResource()
+phase2_resource = Phase2Resource()
+comments_resource = CommentsResource()
 
 urlpatterns = [
 
@@ -25,8 +27,11 @@ urlpatterns = [
     path('', include(quality_control_resource.urls)),
     path('', include(phase_type_resource.urls)),
     path('', include(phase_resource.urls)),
+    path('', include(phase2_resource.urls)),
     path('', include(project_resource.urls)),
     path('', include(event_type_resource.urls)),
     path('', include(event_resource.urls)),
+    path('', include(comments_resource.urls)),
     path('quality_review_notification/', views.quality_review_notification, name="send notification"),
+
 ]

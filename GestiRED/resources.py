@@ -7,10 +7,17 @@ from tastypie.resources import ALL,  ALL_WITH_RELATIONS
 
 
 class UserResource(ModelResource):
+    rols=fields.ToManyField('GestiRED.resources.RolResource','rols', full=True)
+
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
         authorization = Authorization()
+    #filtro para usuario con roles especificos
+        filtering = {
+            'rols': ALL_WITH_RELATIONS,
+        }
+
 
 
 class RolResource(ModelResource):
@@ -34,6 +41,7 @@ class ResourceTypeResource(ModelResource):
         authorization = Authorization()
 
 class PhaseTypeResource(ModelResource):
+    name = fields.CharField(attribute="name")
     class Meta:
         queryset = PhaseType.objects.all()
         resource_name = 'phaseType'
@@ -61,7 +69,7 @@ class ResourceResource(ModelResource):
 
 
 class PhaseResource(ModelResource):
-    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True)
+    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True, )
     resources = fields.ForeignKey(ResourceResource, 'resource', null=True)
     fields = ['resources']
     class Meta:
@@ -73,13 +81,32 @@ class PhaseResource(ModelResource):
 
         }
 
+class Phase2Resource(ModelResource):
+    phaseType= fields.ForeignKey(PhaseTypeResource, 'phaseType', null=True, full=True)
+    resource = fields.ForeignKey(ResourceResource, 'resource', null=True, full=True)
+    fields = ['phaseType']
+    class Meta:
+        queryset = Phase.objects.all()
+        resource_name = 'resources'
+        authorization = Authorization()
+        filtering = {
+            'phaseType': ALL_WITH_RELATIONS
+
+        }
+
+
 class QualityControlResource(ModelResource):
-    responsible  = fields.CharField(attribute="responsible")
-    resource = fields.CharField(attribute="resource")
+    responsible  = fields.ForeignKey(UserResource,'responsible', full=True)
+    resource = fields.ForeignKey(ResourceResource,'resource', full=True)
     class Meta:
         queryset = QualityControl.objects.all()
         resource_name = 'qualityControl'
         authorization = Authorization()
+        filtering = {
+            'responsible': ALL_WITH_RELATIONS,
+            'resource': ALL_WITH_RELATIONS,
+            'state': ALL_WITH_RELATIONS
+        }
 
 
 class ProjectResource(ModelResource):
@@ -113,3 +140,16 @@ class EventResource(ModelResource):
         queryset = Event.objects.all()
         resource_name = 'event'
         authorization = Authorization()
+
+class CommentsResource(ModelResource):
+    resource = fields.ForeignKey(ResourceResource, 'resource', null=True)
+
+    fields = ['resource']
+    class Meta:
+        queryset = Comments.objects.all()
+        resource_name = 'comments'
+        authorization = Authorization()
+        filtering = {
+            'resource': ALL_WITH_RELATIONS
+
+        }
