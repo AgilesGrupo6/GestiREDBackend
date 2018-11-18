@@ -153,3 +153,20 @@ class CommentsResource(ModelResource):
             'resource': ALL_WITH_RELATIONS
 
         }
+
+class ResourcexUserResource(ModelResource):
+
+    resourceType = fields.CharField(attribute="resourceType")
+    responsibles = fields.ToManyField('GestiRED.resources.UserResource','responsibles')
+    #Phases = fields.ToManyField('GestiRED.resources.PhaseResource','resources', null=True)
+    class Meta:
+        queryset = Resource.objects.all()
+        resource_name = 'resourcesxuser'
+        authorization = Authorization()
+        filtering = {
+            'responsibles': ALL_WITH_RELATIONS,
+        }
+
+    def dehydrate_responsibles(self, bundle):
+        user = list ( bundle.obj.responsibles.all ())
+        return  [u for u in user]

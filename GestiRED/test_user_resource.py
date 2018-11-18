@@ -11,6 +11,6 @@ class TestUserResource(ResourceTestCaseMixin,TestCase):
         self.fail()
 
     def test_get_user_resources(self):
-        resp = self.api_client.get('/gestired/resourcesxuser/?user_in=2', format='json')
+        resp = self.api_client.get('/gestired/resourcesxuser/?responsibles=2', format='json')
         self.assertTrue(len(self.deserialize(resp)['objects'])>0)
         #self.assertValidJSONResponse(resp)
