@@ -16,6 +16,7 @@ event_type_resource = EventTypeResource()
 event_resource = EventResource()
 phase2_resource = Phase2Resource()
 comments_resource = CommentsResource()
+resourcexuser_resource = ResourcexUserResource()
 
 urlpatterns = [
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('', include(event_type_resource.urls)),
     path('', include(event_resource.urls)),
     path('', include(comments_resource.urls)),
+    path('', include(resourcexuser_resource.urls)),
     path('quality_review_notification/', views.quality_review_notification, name="send notification"),
 
 ]
