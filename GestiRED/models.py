@@ -58,7 +58,7 @@ class Resource(models.Model):
     url = models.CharField(max_length=200)
     resourceType = models.ForeignKey(ResourceType, on_delete=models.CASCADE)
     responsibles = models.ManyToManyField('User')
-    #fases = models.ForeignKey('Fase', on_delete=models.CASCADE)
+    phases = models.ManyToManyField('PhaseType', through='Phase')
 
     def save(self, *args, **kwargs):
         if self.id is None or self.name not in self.labels:
@@ -67,6 +67,19 @@ class Resource(models.Model):
 
     def __str__(self):
         return '%s' % self.name
+
+    def json(self):
+        return {
+            'id': self.id,
+            'labels': self.labels,
+            'name': self.name,
+            'registrationDate': self.registrationDate.strftime("%Y-%m-%dT%H:%M:%S"),#2018-10-03T05:15:04 "%Y-%m-%d%T%%HH:%M:%S"
+            'resourceType': self.resourceType.name,
+            'responsibles': [resp.__str__() for resp in self.responsibles.all()],
+            'phases': [ph.__str__() for ph in self.phases.all()],
+            'url': self.url,
+            'resource_uri': '/gestired/resources/'+self.id.__str__()+'/',
+        }
 
 class QualityControl(models.Model):
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='assign_user')

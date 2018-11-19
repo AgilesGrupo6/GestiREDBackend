@@ -4,7 +4,9 @@ import json
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from GestiRED.models import User
-from GestiRED.models import QualityControl
+from GestiRED.models import QualityControl, Phase, Resource, ResourceType,PhaseType
+from django.core import serializers
+from django.db.models import Q
 
 # Create your views here.
 
@@ -31,11 +33,33 @@ def quality_review_notification(request):
     res = {"status": "Ok", "Content:": "Email enviado"}
     return HttpResponse(json.dumps(res), content_type="application/json")
 
+@csrf_exempt
+def resources_filters(request):
+    qs_json={}
+    if request.method == 'GET':
 
+        phaseType = request.GET.get('phaseType')
+        if phaseType != None : phaseType= phaseType.split(',')
 
+        resourceType = request.GET.get('resourceType')
+        if resourceType != None : resourceType = resourceType.split(',')
 
+        responsible = request.GET.get('responsible')
+        if responsible != None: responsible = responsible.split(',')
 
+        labels = request.GET.get('labels')
 
-
-
+        my_dict = {'phase__phaseType__in':phaseType,
+                   'resourceType__in': resourceType,
+                   'responsibles__in':responsible,
+                   'labels__icontains': labels}  # Your dict with fields
+        or_condition = Q()
+        for key, value in my_dict.items():
+            if value != None:
+                or_condition.add(Q(**{key: value}), Q.AND)
+        lp = set()
+        lp=Resource.objects.filter(or_condition).all().distinct()
+        data = list([res.json() for res in lp])
+        qs_json =json.dumps({'objects':data})
+    return HttpResponse( qs_json, content_type='application/json')
 
