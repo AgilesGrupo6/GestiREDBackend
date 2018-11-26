@@ -35,5 +35,6 @@ urlpatterns = [
     path('', include(comments_resource.urls)),
     path('', include(resourcexuser_resource.urls)),
     path('quality_review_notification/', views.quality_review_notification, name="send notification"),
+    path('resourcesfilters/', views.resources_filters, name="resources_filters"),
 
 ]

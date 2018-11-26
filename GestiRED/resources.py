@@ -60,6 +60,7 @@ class ResourceResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'responsibles': ALL_WITH_RELATIONS,
+            'resourceType': ALL_WITH_RELATIONS,
             'labels': ALL,
         }
 
@@ -153,7 +154,6 @@ class CommentsResource(ModelResource):
             'resource': ALL_WITH_RELATIONS
 
         }
-
 class ResourcexUserResource(ModelResource):
 
     resourceType = fields.CharField(attribute="resourceType")
